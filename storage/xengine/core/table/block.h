@@ -71,7 +71,7 @@ class BlockReadAmpBitmap {
 
     // Create bitmap and set all the bits to 0
     bitmap_ = new std::atomic<uint32_t>[ bitmap_size ];
-    memset(bitmap_, 0, bitmap_size * kBytesPersEntry);
+    memset(static_cast<void*>(bitmap_), 0, bitmap_size * kBytesPersEntry);
     QUERY_COUNT_ADD(xengine::monitor::CountPoint::READ_AMP_TOTAL_READ_BYTES,
                     num_bits_needed << bytes_per_bit_pow_);
   }

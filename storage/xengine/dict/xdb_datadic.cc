@@ -105,7 +105,7 @@ Xdb_key_def::Xdb_key_def(const Xdb_key_def &k)
     const size_t size = sizeof(Xdb_field_packing) * k.m_key_parts;
     m_pack_info =
         reinterpret_cast<Xdb_field_packing *>(my_malloc(PSI_NOT_INSTRUMENTED, size, MYF(0)));
-    memcpy(m_pack_info, k.m_pack_info, size);
+    memcpy(static_cast<void*>(m_pack_info), static_cast<void*>(k.m_pack_info), size);
   }
 
   if (k.m_pk_part_no) {
@@ -1052,7 +1052,7 @@ void xdb_pack_blob(Xdb_field_packing *const fpi, Field *const field,
               field->real_type() == MYSQL_TYPE_JSON);
 
   int64_t length = fpi->m_max_image_len;
-  Field_blob* const field_blob = static_cast<Field_blob *const>(field);
+  Field_blob* const field_blob = static_cast<Field_blob *>(field);
   const CHARSET_INFO *field_charset = field_blob->charset();
 
   uchar *blob = nullptr;
@@ -5010,7 +5010,7 @@ bool Xdb_ddl_manager::load_existing_tables(uint max_index_id_in_dict)
       }
 
       DBUG_ASSERT(cfh != nullptr);
-      tdef->space_id = (reinterpret_cast<xengine::db::ColumnFamilyHandleImpl *const>(cfh))->cfd()->get_table_space_id();
+      tdef->space_id = (reinterpret_cast<xengine::db::ColumnFamilyHandleImpl *>(cfh))->cfd()->get_table_space_id();
 
       /*
         We can't fully initialize Xdb_key_def object here, because full

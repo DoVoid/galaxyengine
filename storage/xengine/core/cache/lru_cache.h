@@ -95,6 +95,7 @@ struct LRUHandle {
     charge(0),
     key_length(0),
     refs(0),
+    old_flags(char()),
     hash(0) {
     flags &= 0;
     old_flags &= 1;

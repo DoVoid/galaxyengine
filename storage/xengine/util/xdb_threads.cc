@@ -41,7 +41,7 @@ void *Xdb_thread::thread_func(void *const thread_ptr) {
     thd->thread_stack=(char*)&thd;
     thd->store_globals();
   }
-  Xdb_thread *const thread = static_cast<Xdb_thread *const>(thread_ptr);
+  Xdb_thread *const thread = static_cast<Xdb_thread *>(thread_ptr);
   if (!thread->m_run_once.exchange(true)) {
     thread->setname();
     thread->run();

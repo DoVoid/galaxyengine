@@ -182,9 +182,9 @@ public:
 	    memset(buckets_, 0, sizeof(hashnode *) * bucket_num_);
 	    int64_t locks_size = (bucket_num_) * sizeof(FastRWLatch);
 	    locks_ = (FastRWLatch *)memory::base_malloc(locks_size, memory::ModId::kCacheHashTable);
-	    memset(locks_, 0, locks_size);
+	    memset(static_cast<void*>(locks_), 0, locks_size);
 	    nodes_ = (hashnode *)memory::base_malloc(bucket_num_ * sizeof(hashnode), memory::ModId::kCacheHashTable);
-	    memset(nodes_, 0, bucket_num_ * sizeof(hashnode));
+	    memset(static_cast<void*>(nodes_), 0, bucket_num_ * sizeof(hashnode));
       init_ = true;
     }
 	  return ret;

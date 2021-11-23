@@ -2454,7 +2454,7 @@ Status ExtentBasedTable::DumpIndexBlock(WritableFile* out_file) {
     return s;
   }
 
-  const int64_t max_buf_size = 1024;
+  const int64_t max_buf_size = 2048;
   char buf[max_buf_size];
   char block_stats_buffer[1024];
 

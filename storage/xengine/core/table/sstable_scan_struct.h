@@ -69,7 +69,7 @@ struct ScanParam
 
   void reset()
   {
-    memset(this, 0, sizeof(*this));
+    memset(static_cast<void*>(this), 0, sizeof(*this));
   }
   bool is_valid() const
   {
